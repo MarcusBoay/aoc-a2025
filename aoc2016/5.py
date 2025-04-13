@@ -33,10 +33,22 @@ class Solution:
             i += 1
         print("Password:", password)
 
-
-
     def solve2(self):
         print("--- Part Two ---")
+
+        password = ['.' for i in range(8)]
+        i = 0
+        filled = 0
+        while filled < 8:
+            t = self.ins + str(i)
+            m = hashlib.md5()
+            m.update(t.encode())
+            h = m.hexdigest()
+            if h[0:5] == "00000" and ord('0') <= ord(h[5]) < ord('8') and password[int(h[5])] == '.':
+                password[int(h[5])] = h[6]
+                filled += 1
+            i += 1
+        print("Password:", "".join(password))
 
 def main():
     Solution.test()
