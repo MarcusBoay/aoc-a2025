@@ -45,11 +45,9 @@ class Solution:
             while len(common) < 5:
                 # get nth most common letter
                 n = 0
-                # ni = 0
                 for i in range(len(letters)):
                     if i not in seenI and letters[i] not in seenN and letters[i] > n:
                         n = letters[i]
-                        # ni = i
                 seenN.add(n)
 
                 # get all nth most common letter
@@ -72,6 +70,28 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        for room in self.ins:
+            # get checksum
+            checksum = set()
+            for i in range(len(room)-6, len(room)-1):
+                checksum.add(room[i])
+
+            # get sector id
+            room = room[0:len(room)-7].split('-')
+            sectorID = int(room.pop())
+            shift = sectorID % 26
+
+            decryptedWords = []
+            for word in room:
+                d = ""
+                for e in word:
+                    d += chr(((ord(e) - ord('a') + shift) % 26) + ord('a'))
+                decryptedWords.append(d)
+            if (decryptedWords[0] == "northpole"):
+                print(decryptedWords, sectorID)
+
+
+
 
 def main():
     Solution.test()
