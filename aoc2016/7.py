@@ -54,6 +54,41 @@ class Solution:
     def solve2(self):
         print("--- Part Two ---")
 
+        totalSupportedIPs = 0
+        for ip in self.ins:
+            ABAs = set()
+            BABs = set()
+            isWithin = False
+            i = 1
+            while i < len(ip)-1:
+                c = ip[i]
+                if c == '[':
+                    isWithin = True
+                    i += 2
+                    continue
+                elif c == ']':
+                    isWithin = False
+                    i += 2
+                    continue
+
+                if ip[i-1] == ip[i+1]:
+                    print(ip[i-1:i+2])
+                    if not isWithin:
+                        ABAs.add(ip[i-1:i+2])
+                    else:
+                        BABs.add(ip[i-1:i+2])
+                i += 1
+
+            supportsSSL = False
+            for ABA in ABAs:
+                BAB = ABA[1] + ABA[0] + ABA[1]
+                if BAB in BABs:
+                    supportsSSL = True
+            if supportsSSL:
+                totalSupportedIPs += 1
+
+        print("Numbers of IPs that support SSL:", totalSupportedIPs)
+
 def main():
     Solution.test()
     Solution.run()
