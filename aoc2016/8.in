@@ -1,0 +1,170 @@
+rect 1x1
+rotate row y 0 5
+rect 1x1
+rotate row y 0 5
+rect 1x1
+rotate row y 0 3
+rect 1x1
+rotate row y 0 2
+rect 1x1
+rotate row y 0 3
+rect 1x1
+rotate row y 0 2
+rect 1x1
+rotate row y 0 5
+rect 1x1
+rotate row y 0 5
+rect 1x1
+rotate row y 0 3
+rect 1x1
+rotate row y 0 2
+rect 1x1
+rotate row y 0 3
+rect 2x1
+rotate row y 0 2
+rect 1x2
+rotate row y 1 5
+rotate row y 0 3
+rect 1x2
+rotate column x 30 1
+rotate column x 25 1
+rotate column x 10 1
+rotate row y 1 5
+rotate row y 0 2
+rect 1x2
+rotate row y 0 5
+rotate column x 0 1
+rect 4x1
+rotate row y 2 18
+rotate row y 0 5
+rotate column x 0 1
+rect 3x1
+rotate row y 2 12
+rotate row y 0 5
+rotate column x 0 1
+rect 4x1
+rotate column x 20 1
+rotate row y 2 5
+rotate row y 0 5
+rotate column x 0 1
+rect 4x1
+rotate row y 2 15
+rotate row y 0 15
+rotate column x 10 1
+rotate column x 5 1
+rotate column x 0 1
+rect 14x1
+rotate column x 37 1
+rotate column x 23 1
+rotate column x 7 2
+rotate row y 3 20
+rotate row y 0 5
+rotate column x 0 1
+rect 4x1
+rotate row y 3 5
+rotate row y 2 2
+rotate row y 1 4
+rotate row y 0 4
+rect 1x4
+rotate column x 35 3
+rotate column x 18 3
+rotate column x 13 3
+rotate row y 3 5
+rotate row y 2 3
+rotate row y 1 1
+rotate row y 0 1
+rect 1x5
+rotate row y 4 20
+rotate row y 3 10
+rotate row y 2 13
+rotate row y 0 10
+rotate column x 5 1
+rotate column x 3 3
+rotate column x 2 1
+rotate column x 1 1
+rotate column x 0 1
+rect 9x1
+rotate row y 4 10
+rotate row y 3 10
+rotate row y 1 10
+rotate row y 0 10
+rotate column x 7 2
+rotate column x 5 1
+rotate column x 2 1
+rotate column x 1 1
+rotate column x 0 1
+rect 9x1
+rotate row y 4 20
+rotate row y 3 12
+rotate row y 1 15
+rotate row y 0 10
+rotate column x 8 2
+rotate column x 7 1
+rotate column x 6 2
+rotate column x 5 1
+rotate column x 3 1
+rotate column x 2 1
+rotate column x 1 1
+rotate column x 0 1
+rect 9x1
+rotate column x 46 2
+rotate column x 43 2
+rotate column x 24 2
+rotate column x 14 3
+rotate row y 5 15
+rotate row y 4 10
+rotate row y 3 3
+rotate row y 2 37
+rotate row y 1 10
+rotate row y 0 5
+rotate column x 0 3
+rect 3x3
+rotate row y 5 15
+rotate row y 3 10
+rotate row y 2 10
+rotate row y 0 10
+rotate column x 7 3
+rotate column x 6 3
+rotate column x 5 1
+rotate column x 3 1
+rotate column x 2 1
+rotate column x 1 1
+rotate column x 0 1
+rect 9x1
+rotate column x 19 1
+rotate column x 10 3
+rotate column x 5 4
+rotate row y 5 5
+rotate row y 4 5
+rotate row y 3 40
+rotate row y 2 35
+rotate row y 1 15
+rotate row y 0 30
+rotate column x 48 4
+rotate column x 47 3
+rotate column x 46 3
+rotate column x 45 1
+rotate column x 43 1
+rotate column x 42 5
+rotate column x 41 5
+rotate column x 40 1
+rotate column x 33 2
+rotate column x 32 3
+rotate column x 31 2
+rotate column x 28 1
+rotate column x 27 5
+rotate column x 26 5
+rotate column x 25 1
+rotate column x 23 5
+rotate column x 22 5
+rotate column x 21 5
+rotate column x 18 5
+rotate column x 17 5
+rotate column x 16 5
+rotate column x 13 5
+rotate column x 12 5
+rotate column x 11 5
+rotate column x 3 1
+rotate column x 2 5
+rotate column x 1 5
+rotate column x 0 1
