@@ -64,8 +64,8 @@ class Solution:
         for row in screen:
             numberOfLitPixels += row.count('#')
         print("Number of pixels lit:", numberOfLitPixels)
-        # for row in screen:
-        #     print("".join(row))
+        for row in screen:
+            print("".join(row))
 
     def solve2(self):
         print("--- Part Two ---")
