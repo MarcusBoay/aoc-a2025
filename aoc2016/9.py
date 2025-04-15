@@ -48,6 +48,36 @@ class Solution:
     def solve2(self):
         print("--- Part Two ---")
 
+        decompressedLength = len(self.ins)
+        mIter = re.finditer(r"\((\d+)x(\d+)\)", self.ins)
+        def backtrack(cur, arr):
+            
+            pass
+
+        try:
+            curStart, curEnd = 0, 0
+            prevLength = 0
+            arr = []
+            while True:
+                m = next(mIter)
+                nextEnd = m.end()
+                if nextEnd > curEnd + prevLength:
+                    # remove marker from length
+                    curStart, curEnd = m.start(), m.end()
+                    decompressedLength -= curEnd - curStart
+
+                    # add n * reps-1 for the decompressed section
+                    n = int(m.group(1))
+                    reps = int(m.group(2))
+                    prevLength = n
+                    decompressedLength += n*(reps-1)*backtrack(m, [m])
+
+                    # print(m, prevDecompressedLength, decompressedLength)
+
+        except Exception as e:
+            print("Exception occured!!", e)
+        print("Decompressed length of the file:", decompressedLength)
+
 def main():
     Solution.test()
     Solution.run()
