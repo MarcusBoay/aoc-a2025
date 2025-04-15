@@ -252,15 +252,15 @@ class Solution:
         n = self.n
         while curIte < n:
             curIte += 1
-            newQ = []
+            qn = len(q)
             if curIte > 40:
                 print("iteration", curIte)
-            while q:
+            while qn:
                 e = q.pop(0)
+                qn -= 1
                 decayed = decaysInto[e]
                 for d in decayed:
-                    newQ.append(d)
-            q = newQ[:]
+                    q.append(d)
 
         totalLength = 0
         for e in q:
