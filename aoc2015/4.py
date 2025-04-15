@@ -33,6 +33,16 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        i = 0
+        while True:
+            t = self.ins + str(i)
+            m = hashlib.md5()
+            m.update(t.encode())
+            h = m.hexdigest()
+            if h[0:6] == "000000":
+                print("Answer:", i)
+                return
+            i += 1
 
 def main():
     Solution.test()
