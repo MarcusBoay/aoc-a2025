@@ -1,5 +1,5 @@
 QUIZ_NUMBER = "13"
-
+# FIXME: Both function never run to completion...
 class Solution:
     def run(fileName = QUIZ_NUMBER + ".in"):
         solution = Solution(fileName)
