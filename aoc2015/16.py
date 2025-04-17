@@ -55,6 +55,27 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        possibleAunt = []
+        for i in range(1, 501):
+            curMatch = self.match.copy()
+            isPossibleAunt = True
+            for thing in self.ins[i][1]:
+                auntThingN = self.ins[i][1][thing]
+                if thing in ["cats", "trees"] and \
+                   curMatch[thing] >= auntThingN:
+                    isPossibleAunt = False
+                    break
+                elif thing in ["pomeranians", "goldfish"] and \
+                     curMatch[thing] <= auntThingN:
+                    isPossibleAunt = False
+                    break
+                elif thing not in ["cats", "trees", "pomeranians", "goldfish"] and \
+                     curMatch[thing] != auntThingN:
+                    isPossibleAunt = False
+                    break
+            if isPossibleAunt:
+                possibleAunt.append(i)
+        print("Possible aunts:", possibleAunt)
 
 def main():
     # Solution.test()
