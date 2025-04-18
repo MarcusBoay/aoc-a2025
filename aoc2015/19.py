@@ -15,6 +15,7 @@ class Solution:
         self.fileName = fileName
         fp = open(fileName, 'r')
         arr = list(map(str, fp.read().split('\n')))
+        self.ins = arr[:]
         self.replacements = dict()
         self.startingMolecule = ""
         readStartingMolecule = False
@@ -50,12 +51,53 @@ class Solution:
                 pass
         print(f"Number of distinct molecules that can be created: {len(distinctMolecules)}")
 
-
     def solve2(self):
         print("--- Part Two ---")
+        terminals = set()
+        allEnds = set()
+        allR = set()
+        for r in self.replacements:
+            allR.add(r)
+        for r in self.replacements:
+            for rr in self.replacements[r]:
+                cur = ""
+                allCur = set()
+                for c in rr:
+                    if c.islower():
+                        cur += c
+                    else:
+                        if cur:
+                            allCur.add(cur)
+                        cur = c
+                allCur.add(cur)
+                allEnds.add(cur)
+                for c in allCur:
+                    if c not in allR:
+                        terminals.add(c)
+        print(f"Replacement terminal molecules: {terminals}")
+        terminalEnds = set()
+        for t in terminals:
+            if t in allEnds:
+                terminalEnds.add(t)
+        print(f"Replacement terminal molecules that are ends: {terminalEnds}")
+
+        splits = []
+        mIter = re.finditer(list(terminalEnds)[0], self.startingMolecule)
+        prevEnd = 0
+        try:
+            while True:
+                m = next(mIter)
+                splits.append(self.startingMolecule[prevEnd:m.end()])
+                prevEnd = m.end()
+        except:
+            pass
+        if self.startingMolecule[prevEnd::]:
+            splits.append(self.startingMolecule[prevEnd::])
+        print(splits)
+
 
 def main():
-    Solution.test()
+    # Solution.test()
     Solution.run()
 
 if __name__ == "__main__":
