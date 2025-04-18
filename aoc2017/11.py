@@ -30,13 +30,16 @@ class Solution:
         actions["se"] = (1, 0.5)
         actions["nw"] = (-1, -0.5)
 
-        # take original steps
         for row in self.ins:
+            # take original steps
             coords = [0, 0]
-            for step in row:
+            for i in range(len(row)):
+                step = row[i]
                 coords[0] += actions[step][0]
                 coords[1] += actions[step][1]
+            print(f"total steps taken: {len(row)}")
 
+            # find min steps to coords
             seen = set()
             q = []
             q.append((0, 0))
@@ -60,6 +63,47 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        actions = dict()
+        actions["n"] = (0, -1)
+        actions["s"] = (0, 1)
+        actions["ne"] = (1, -0.5)
+        actions["sw"] = (-1, 0.5)
+        actions["se"] = (1, 0.5)
+        actions["nw"] = (-1, -0.5)
+
+        for row in self.ins:
+            # take original steps and get max coords
+            coords = [0, 0]
+            maxStep = 0
+            for i in range(len(row)):
+                step = row[i]
+                coords[0] += actions[step][0]
+                coords[1] += actions[step][1]
+
+                # find min steps to cur coords
+                steps = 0
+                if coords[0] < 0:
+                    # xw
+                    steps += abs(coords[0])
+                    if coords[1] < 0:
+                        # nw
+                        steps += coords[1] - coords[0]/2
+                    else:
+                        # sw
+                        steps += coords[1] + coords[0]/2
+                else:
+                    # xe
+                    steps += coords[0]
+                    if coords[1] < 0:
+                        # ne
+                        steps += coords[1] + coords[0]/2
+                    else:
+                        # se
+                        steps += coords[1] - coords[0]/2
+                maxStep = max(maxStep, steps)
+
+            print(f"Reached max coords at step {maxStep}")
+
 
 def main():
     Solution.test()
