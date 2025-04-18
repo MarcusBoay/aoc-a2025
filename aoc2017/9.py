@@ -48,10 +48,39 @@ class Solution:
             backtrack(row)
             print(f"Total score: {self.score}")
 
-
-
     def solve2(self):
         print("--- Part Two ---")
+        def backtrack(row):
+            x = 0
+            ignore = False
+            while self.i < len(row):
+                c = row[self.i]
+                if not ignore and c == '{':
+                    self.i += 1
+                    x += backtrack(row)
+                elif not ignore and c == '}':
+                    self.score += x + 1
+                    self.i += 1
+                    return x + 1
+                elif not ignore and c == '<':
+                    self.i += 1
+                    ignore = True
+                elif c == '>':
+                    self.i += 1
+                    ignore = False
+                elif c == '!':
+                    self.i += 2
+                else:
+                    if ignore == True:
+                        self.garbage += 1
+                    self.i += 1
+            return x
+        for row in self.ins:
+            self.i = 0
+            self.score = 0
+            self.garbage = 0
+            backtrack(row)
+            print(f"Total non-cancelled characters within garbage: {self.garbage}")
 
 def main():
     Solution.test()
