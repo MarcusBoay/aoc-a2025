@@ -23,30 +23,57 @@ class Solution:
 
     def solve1(self):
         print("--- Part One ---")
+        programs = self.programs[:]
         for instr in self.ins:
             if instr[0] == 's':
                 spinSize = int(instr[1::])
                 while spinSize:
-                    self.programs.insert(0, self.programs.pop())
+                    programs.insert(0, programs.pop())
                     spinSize -= 1
             elif instr[0] == 'x':
                 p1, p2 = instr[1::].split('/')
                 p1, p2 = int(p1), int(p2)
-                self.programs[p1], self.programs[p2] = self.programs[p2], self.programs[p1]
+                programs[p1], programs[p2] = programs[p2], programs[p1]
             elif instr[0] == 'p':
                 p1, p2 = instr[1::].split('/')
                 i1, i2 = 0, 0
-                for i in range(len(self.programs)):
-                    p = self.programs[i]
+                for i in range(len(programs)):
+                    p = programs[i]
                     if p == p1:
                         i1 = i
                     elif p == p2:
                         i2 = i
-                self.programs[i1], self.programs[i2] = self.programs[i2], self.programs[i1]
-        print(f"Order of programs: {"".join(self.programs)}")
+                programs[i1], programs[i2] = programs[i2], programs[i1]
+        print(f"Order of programs: {"".join(programs)}")
 
     def solve2(self):
         print("--- Part Two ---")
+        programs = self.programs[:]
+        n = 1000000000 % 30
+        for ite in range(n):
+            if ite % 1000000 == 0:
+                print(f"iteration {ite}")
+            for instr in self.ins:
+                if instr[0] == 's':
+                    spinSize = int(instr[1::])
+                    while spinSize:
+                        programs.insert(0, programs.pop())
+                        spinSize -= 1
+                elif instr[0] == 'x':
+                    p1, p2 = instr[1::].split('/')
+                    p1, p2 = int(p1), int(p2)
+                    programs[p1], programs[p2] = programs[p2], programs[p1]
+                elif instr[0] == 'p':
+                    p1, p2 = instr[1::].split('/')
+                    i1, i2 = 0, 0
+                    for i in range(len(programs)):
+                        p = programs[i]
+                        if p == p1:
+                            i1 = i
+                        elif p == p2:
+                            i2 = i
+                    programs[i1], programs[i2] = programs[i2], programs[i1]
+        print(f"Order of programs: {"".join(programs)}")
 
 def main():
     Solution.test()
