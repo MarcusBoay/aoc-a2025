@@ -3,8 +3,7 @@ QUIZ_NUMBER = "21"
 class Solution:
     def run(fileName = QUIZ_NUMBER + ".in"):
         solution = Solution(fileName)
-        solution.solve1()
-        solution.solve2()
+        solution.solve()
 
     def test():
         Solution.run(QUIZ_NUMBER + ".ex.in")
@@ -38,8 +37,7 @@ class Solution:
         self.rings["Defense +2"] = (40, 0, 2)
         self.rings["Defense +3"] = (80, 0, 3)
 
-    def solve1(self):
-        print("--- Part One ---")
+    def solve(self):
         playerHP = 100
         enemyHP = self.ins[0]
         enemyDamage = self.ins[1]
@@ -78,23 +76,26 @@ class Solution:
                             curPlayerHP -= playerDamageReceive
                             turn += 1
 
+                        cost = self.weapons[w][0] + self.armor[a][0] + self.rings[r1][0] + self.rings[r2][0]
                         if curEnemyHP <= 0:
                             # player wins
-                            cost = self.weapons[w][0] + self.armor[a][0] + self.rings[r1][0] + self.rings[r2][0]
                             totalCosts.add((w, a, r1, r2, cost))
                         else:
-                            totalCosts.add((w, a, r1, r2, -1))
+                            totalCosts.add((w, a, r1, r2, -cost))
                             pass
         minGold = 999999999
         minSet = ()
+        maxGold = -1
+        maxSet = ()
         for c in totalCosts:
             if c[4] >= 0 and c[4] < minGold:
                 minSet = c
                 minGold = c[4]
+            if c[4] <= 0 and -c[4] >= maxGold:
+                maxSet = c
+                maxGold = -c[4]
         print(f"Set that defeated the enemy: {minSet}")
-
-    def solve2(self):
-        print("--- Part Two ---")
+        print(f"Most costly set that still made you lose: {maxSet}")
 
 def main():
     # Solution.test()
