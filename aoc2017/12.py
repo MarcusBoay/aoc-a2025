@@ -39,6 +39,23 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        groups = 0
+        seen = set()
+        for i in range(len(self.ins)):
+            if str(i) not in seen:
+                q = [i]
+                while q:
+                    qn = len(q)
+                    while qn:
+                        cur = q.pop(0)
+                        qn -= 1
+                        seen.add(cur)
+                        for next in self.ins[int(cur)][1]:
+                            if next not in seen:
+                                seen.add(next)
+                                q.append(next)
+                groups += 1
+        print(f"Number of groups: {groups}")
 
 def main():
     Solution.test()
