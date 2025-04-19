@@ -47,6 +47,25 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        scanners = dict()
+        maxScanner = 0
+        for row in self.ins:
+            scanners[row] = 2*(self.ins[row]-1) # time taken to go and come back to 0
+            maxScanner = max(maxScanner, row)
+        delay = -1
+        caught = True
+        while caught:
+            caught = False
+            delay += 1
+            for s in scanners:
+                if s == 0 and delay == 0:
+                    caught = True
+                    break
+                if ((s+delay) % scanners[s]) == 0:
+                    caught = True
+                    break
+        if not caught:
+            print(f"Fewest number of picosends to delay without getting caught: {delay}")
 
 def main():
     Solution.test()
