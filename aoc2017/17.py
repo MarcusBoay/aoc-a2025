@@ -31,17 +31,14 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
-        b = [0]
         ni = 0
+        valueAfterZero = 0
         for i in range(1, 50000000+1):
-            ni = (ni + self.ins) % len(b)
+            ni = (ni + self.ins) % i
             ni += 1
-            b.insert(ni, i)
-            print(",".join(list(map(str,b))))
-        for i in range(len(b)):
-            if b[i] == 0:
-                print(f"Value after 50000000: {b[i+1]}")
-                return
+            if ni == 1:
+                valueAfterZero = i
+        print(f"Value after 50000000: {valueAfterZero}")
 
 def main():
     Solution.test()
