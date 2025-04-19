@@ -61,15 +61,18 @@ class Solution:
         # represent the dense hash in hexadecimal notation
         hexStr = ""
         for d in denseHash:
-            hexStr += str(hex(d))[2:4]
-        return int(hexStr, 16)
+            hs = str(hex(d))[2::]
+            if len(hs) < 2:
+                hexStr += '0'
+            hexStr += hs
+        return int(hexStr, 16), hexStr
 
     def solve1(self):
         print("--- Part One ---")
         totalSetBits = 0
         for i in range(128):
             s = self.ins + "-" + str(i)
-            knotHash = self.knotHash(s)
+            knotHash, _ = self.knotHash(s)
             while knotHash:
                 totalSetBits += 1
                 knotHash &= knotHash-1
@@ -78,6 +81,71 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        grid = []
+        for i in range(128):
+            s = self.ins + "-" + str(i)
+            knotHash, knotHashStr = self.knotHash(s)
+            # print(s, knotHashStr)
+            row = []
+            while knotHash:
+                if knotHash & 1:
+                    row.append('#')
+                else:
+                    row.append('.')
+                knotHash = knotHash>>1
+            while len(row) < 128:
+                row.append('.')
+            row.reverse()
+            grid.append(list(map(str, row[:])))
+
+        usedSquares = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                if grid[i][j] == '#':
+                    usedSquares += 1
+        print(f"used squares: {usedSquares}")
+        # for row in grid:
+        #     print("".join(row))
+        # exit()
+        region = 1
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                if grid[i][j] == '#':
+                    # color this region
+                    q = [(i, j)]
+                    seen = set()
+                    seen.add((i, j))
+                    while q:
+                        cur = q.pop(0)
+                        grid[cur[0]][cur[1]] = str(region)
+                        seen.add((cur[0], cur[1]))
+                        ni, nj = cur[0]-1, cur[1]
+                        if ni >= 0 and grid[ni][nj] == '#' and (ni, nj) not in seen:
+                            seen.add((ni, nj))
+                            q.append((ni, nj))
+                        ni, nj = cur[0]+1, cur[1]
+                        if ni < len(grid) and grid[ni][nj] == '#' and (ni, nj) not in seen:
+                            seen.add((ni, nj))
+                            q.append((ni, nj))
+                        ni, nj = cur[0], cur[1]-1
+                        if nj >= 0 and grid[ni][nj] == '#' and (ni, nj) not in seen:
+                            seen.add((ni, nj))
+                            q.append((ni, nj))
+                        ni, nj = cur[0], cur[1]+1
+                        if nj < len(grid[i]) and grid[ni][nj] == '#' and (ni, nj) not in seen:
+                            seen.add((ni, nj))
+                            q.append((ni, nj))
+
+                    region += 1
+            # for row in grid:
+            #     print("".join(row))
+            # exit()
+        print(f"Number of regions: {region-1}")
+        # for row in grid:
+        #     print("".join(row))
+
+
+
 
 def main():
     Solution.test()
