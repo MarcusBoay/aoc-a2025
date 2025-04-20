@@ -60,6 +60,48 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        pos = dict() # ((i,j), 0(clean), 1(weakened), 2(infected), 3(flagged))
+        for i in range(len(self.ins)):
+            for j in range(len(self.ins[i])):
+                pos[(i,j)] = 0
+                if self.ins[i][j] == '#':
+                    pos[(i,j)] = 2
+
+        i, j = len(self.ins)//2, len(self.ins[0])//2
+        facing = 0 # 0(U), (1)R, (2)D, (3)L
+        N = 10000000
+        numberOfInfectedBursts = 0
+        for n in range(N):
+            # turn
+            if pos[(i,j)] == 0: # clean, turn left
+                facing = (facing - 1) % 4
+            elif pos[(i,j)] == 1: # weakened, face the same direction
+                facing = facing
+            elif pos[(i,j)] == 2: # infected, turn right
+                facing = (facing + 1) % 4
+            elif pos[(i,j)] == 3: # flagged, reverse direction
+                facing = (facing + 2) % 4
+
+            # clean/weaken/infect/flag
+            pos[(i,j)] = (pos[(i,j)] + 1) % 4
+            if pos[(i,j)] == 2:
+                numberOfInfectedBursts += 1
+
+            # move forward
+            if facing == 0:
+                i -= 1
+            elif facing == 1:
+                j += 1
+            elif facing == 2:
+                i += 1
+            elif facing == 3:
+                j -= 1
+
+            # add pos if new
+            if (i,j) not in pos:
+                pos[(i,j)] = 0
+
+        print(f"Number of bursts that cause a node to become infected: {numberOfInfectedBursts}")
 
 def main():
     Solution.test()
