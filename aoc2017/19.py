@@ -3,8 +3,7 @@ QUIZ_NUMBER = "19"
 class Solution:
     def run(fileName = QUIZ_NUMBER + ".in"):
         solution = Solution(fileName)
-        solution.solve1()
-        solution.solve2()
+        solution.solve()
 
     def test():
         Solution.run(QUIZ_NUMBER + ".ex.in")
@@ -19,8 +18,7 @@ class Solution:
         fp.close()
         print("===", self.fileName, "===")
 
-    def solve1(self):
-        print("--- Part One ---")
+    def solve(self):
         direction = 'S'
         si, sj = 0, 0
         for j in range(len(self.ins[0])): # starting will always be from the top
@@ -31,11 +29,13 @@ class Solution:
         seen.add((si, sj))
         q = [(si, sj)]
         letters = []
+        steps = 0
         while q:
             (i, j) = q.pop(0)
             seen.add((i, j))
             if self.ins[i][j] == ' ':
                 break
+            steps += 1
             if self.ins[i][j].isalpha():
                 letters.append(self.ins[i][j])
             # check cur location
@@ -72,11 +72,7 @@ class Solution:
                 seen.add((ni, nj))
 
         print(f"Letters seen on the path: {"".join(letters)}")
-
-
-
-    def solve2(self):
-        print("--- Part Two ---")
+        print(f"Number of steps to get to the end: {steps}")
 
 def main():
     Solution.test()
