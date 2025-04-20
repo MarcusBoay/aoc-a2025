@@ -45,6 +45,29 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        self.seen = set()
+        self.maxStrength = 0
+        self.maxLength = 0
+        def getLongestStrength(next, strength):
+            isEnd = True
+            for c in self.ins:
+                for i in range(len(c)):
+                    ce = c[i]
+                    ce2 = c[(i+1)%len(c)]
+                    if tuple(c) not in self.seen and ce == next:
+                        isEnd = False
+                        self.seen.add(tuple(c))
+                        getLongestStrength(ce2, strength+ce+ce2)
+                        self.seen.remove(tuple(c))
+
+            if isEnd and len(self.seen) >= self.maxLength:
+                if len(self.seen) == self.maxLength:
+                    self.maxStrength = max(strength, self.maxStrength)
+                else:
+                    self.maxStrength = strength
+                self.maxLength = len(self.seen)
+        getLongestStrength(0, 0)
+        print(f"Strength of the longest bridge ({self.maxLength}): {self.maxStrength}")
 
 def main():
     Solution.test()
