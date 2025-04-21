@@ -22,8 +22,14 @@ class Solution:
 
         # get hashmap of nodes (name: weight)
         self.nodes = dict()
+        self.nodeRelationship = dict()
         for row in self.ins:
-            self.nodes[row[0]] = row[1]
+            self.nodes[row[0]] = int(row[1])
+            self.nodeRelationship[row[0]] = []
+            for child in row[2::]:
+                self.nodeRelationship[row[0]].append(child)
+        # print(self.nodes)
+        # print(self.nodeRelationship)
 
     def solve1(self):
         print("--- Part One ---")
@@ -45,9 +51,73 @@ class Solution:
                 parents.remove(child)
 
         print("Bottom program:", parents)
+        for p in parents:
+            self.root = p
 
     def solve2(self):
         print("--- Part Two ---")
+        def createTree(root):
+            for childName in self.nodeRelationship[root.name]:
+                child = Node(self.nodes[childName], childName)
+                root.children.append(child)
+                createTree(child)
+
+        def getSumWeight(root):
+            if not root:
+                return 0
+            if not root.children:
+                return root.weight
+
+            s = 0
+            for c in root.children:
+                s += getSumWeight(c)
+            return s + root.weight
+
+        # create tree
+        p = self.root
+        self.root = Node(self.nodes[p], p)
+        createTree(self.root)
+
+        q = [self.root]
+        prevWeight = 0
+        prevNode = self.root
+        while q:
+            qn = len(q)
+            while qn:
+                qn -= 1
+                cur = q.pop(0)
+
+                ws = []
+                for i in range(len(cur.children)):
+                    c = cur.children[i]
+                    w = getSumWeight(c)
+                    ws.append(w)
+                print(ws)
+                heavier = 0
+                lighter = 999999999999
+                for cw in ws:
+                    if heavier < cw:
+                        heavier = cw
+                    if lighter > cw:
+                        lighter = cw
+                if lighter < heavier:
+                    ci = 99999
+                    for i in range(len(ws)):
+                        if ws[i] == heavier:
+                            ci = i
+                            break
+                    q.append(cur.children[ci])
+                    prevWeight = heavier
+                    prevNode = cur.children[ci]
+                else:
+                    # current level is balanced
+                    print(prevWeight, prevNode.name, prevNode.weight)
+
+class Node:
+    def __init__(self, w, name):
+        self.weight = w
+        self.name = name
+        self.children = []
 
 def main():
     Solution.test()
