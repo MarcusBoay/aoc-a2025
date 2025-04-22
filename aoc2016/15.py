@@ -36,11 +36,22 @@ class Solution:
                     break
         print(f"First time we can press the button to get a capsule: {d}")
 
-
-
-
     def solve2(self):
         print("--- Part Two ---")
+        d = -1
+        didFallThrough = False
+        self.ins.append([len(self.ins)+1, 11, 0, 0])
+        while not didFallThrough:
+            d += 1
+            didFallThrough = True
+            for i in range(len(self.ins)):
+                discI = self.ins[i][0]
+                discPosI = self.ins[i][3]
+                discPosN = self.ins[i][1]
+                if ((discPosI + discI + d)%discPosN != 0):
+                    didFallThrough = False
+                    break
+        print(f"First time we can press the button to get a capsule: {d}")
 
 def main():
     Solution.test()
