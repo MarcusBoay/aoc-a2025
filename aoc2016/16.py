@@ -50,20 +50,22 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        # l = 20
         l = 35651584
 
         # generate data
-        a = self.ins[:]
-        while len(a) < l:
-            b = list(map(str, a))
-            b.reverse()
-            for j in range(len(b)):
-                if b[j] == '1':
-                    b[j] = '0'
-                else:
-                    b[j] = '1'
-            a = list(map(str, "".join(a) + '0' + "".join(b)))
-        a = a[0:l]
+        a = [False] * l
+        for i in range(len(self.ins)):
+            a[i] = True if self.ins[i] == '1' else False
+        curL = len(self.ins)
+        while curL < l:
+            # print(curL)
+            a[curL] = False
+            for li in range(0, curL):
+                if curL+li+1 >= l:
+                    break
+                a[curL+li+1] = not a[curL-li-1]
+            curL += curL+1
 
         # get checksum
         checksum = a[:]
@@ -71,14 +73,20 @@ class Solution:
             newChecksum = []
             for i in range(0, len(checksum), 2):
                 if checksum[i] == checksum[i+1]:
-                    newChecksum.append('1')
+                    newChecksum.append(True)
                 else:
-                    newChecksum.append('0')
+                    newChecksum.append(False)
             checksum = newChecksum[:]
-        print(f"Correct checksum for disk of length {l}: {"".join(checksum)}")
+        print(f"Correct checksum for disk of length {l}: ", end="")
+        for b in checksum:
+            if b:
+                print('1', end="")
+            else:
+                print('0', end="")
+        print()
 
 def main():
-    Solution.test()
+    # Solution.test()
     Solution.run()
 
 if __name__ == "__main__":
