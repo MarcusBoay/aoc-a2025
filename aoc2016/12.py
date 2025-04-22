@@ -61,6 +61,41 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        reg = {"a": 0, "b": 0, "c": 1, "d": 0}
+
+        i = 0
+        while i < len(self.ins):
+            inst = self.ins[i]
+            op = inst[0]
+            l = inst[1]
+            r = None
+            if len(inst) > 2:
+                r = inst[2]
+
+            if op == "cpy":
+                if l.isalpha():
+                    l = reg[l]
+                else:
+                    l = int(l)
+                reg[r] = l
+            elif op == "inc":
+                reg[l] += 1
+            elif op == "dec":
+                reg[l] -= 1
+            elif op == "jnz":
+                if l.isalpha():
+                    l = reg[l]
+                else:
+                    l = int(l)
+                if r.isalpha():
+                    r = reg[r]
+                else:
+                    r = int(r)
+                if l != 0:
+                    i -= 1
+                    i += r
+            i += 1
+        print(f"Value in register 'a': {reg["a"]}")
 
 def main():
     Solution.test()
