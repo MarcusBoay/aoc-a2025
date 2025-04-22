@@ -50,6 +50,32 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        l = 35651584
+
+        # generate data
+        a = self.ins[:]
+        while len(a) < l:
+            b = list(map(str, a))
+            b.reverse()
+            for j in range(len(b)):
+                if b[j] == '1':
+                    b[j] = '0'
+                else:
+                    b[j] = '1'
+            a = list(map(str, "".join(a) + '0' + "".join(b)))
+        a = a[0:l]
+
+        # get checksum
+        checksum = a[:]
+        while len(checksum) % 2 == 0:
+            newChecksum = []
+            for i in range(0, len(checksum), 2):
+                if checksum[i] == checksum[i+1]:
+                    newChecksum.append('1')
+                else:
+                    newChecksum.append('0')
+            checksum = newChecksum[:]
+        print(f"Correct checksum for disk of length {l}: {"".join(checksum)}")
 
 def main():
     Solution.test()
