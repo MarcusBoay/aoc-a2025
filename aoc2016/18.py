@@ -50,6 +50,30 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        row = self.ins[:]
+        n = 400000
+        safeTiles = 0
+        for t in row:
+            if t == '.':
+                safeTiles += 1
+
+        # uncover next row in room and get running sum of safe tiles
+        for i in range(n-1):
+            nextRow = []
+            for j in range(len(row)):
+                l = row[j-1] if j-1 >= 0 else '.'
+                c = row[j]
+                r = row[j+1] if j+1 < len(row) else '.'
+                if (l == '^' and c == '^' and r == '.') or \
+                   (l == '.' and c == '^' and r == '^') or \
+                   (l == '^' and c == '.' and r == '.') or \
+                   (l == '.' and c == '.' and r == '^'):
+                    nextRow.append('^')
+                else:
+                    nextRow.append('.')
+                    safeTiles += 1
+            row = nextRow[:]
+        print(f"Number of safe tiles: {safeTiles}")
 
 def main():
     # Solution.test()
