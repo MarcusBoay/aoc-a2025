@@ -36,9 +36,33 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        ip = 0
+        ips = 0
+
+        # maxIP = 10
+        maxIP = 4294967295+1
+        while ip < maxIP:
+            isBlocked = False
+            for r in self.ins:
+                if r[0] <= ip <= r[1]:
+                    ip = r[1]+1
+                    # print(f"blocked by {r}... new ip: {ip}")
+                    isBlocked = True
+                    break
+
+            if not isBlocked:
+                nextBlockIP = maxIP
+                nextIP = ip
+                for r in self.ins:
+                    if r[0] > ip and r[0] < nextBlockIP:
+                        nextBlockIP = r[0]
+                        nextIP = r[1]
+                ips += nextBlockIP-ip
+                ip = nextIP+1
+        print(f"Number of IPs allowed by the blacklist: {ips}")
 
 def main():
-    Solution.test()
+    # Solution.test()
     Solution.run()
 
 if __name__ == "__main__":
