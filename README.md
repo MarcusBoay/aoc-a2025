@@ -5,7 +5,7 @@ Advent of Code puzzles.
 | Status (⭐) | Year |
 | ---------- | ---- |
 | 40         | 2015 |
-| 41         | 2016 |
+| 42         | 2016 |
 | **50**     | 2017 |
 | 11         | 2018 |
 | 0          | 2019 |
@@ -15,7 +15,7 @@ Advent of Code puzzles.
 | 12         | 2023 |
 | 14         | 2024 |
 
-Total: 238 ⭐
+Total: 239 ⭐
 
 So far, my favorite puzzles are the following (starting with my most favorite):
 - 2019, entire IntCode series
