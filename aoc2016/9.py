@@ -42,7 +42,8 @@ class Solution:
                     # print(m, prevDecompressedLength, decompressedLength)
 
         except Exception as e:
-            print("Exception occured!!", e)
+            pass
+            # print("Exception occured!!", e)
         print("Decompressed length of the file:", decompressedLength)
 
     def solve2(self):
@@ -50,32 +51,40 @@ class Solution:
 
         decompressedLength = len(self.ins)
         mIter = re.finditer(r"\((\d+)x(\d+)\)", self.ins)
-        def backtrack(cur, arr):
-            
-            pass
-
+        self.arr = []
         try:
-            curStart, curEnd = 0, 0
-            prevLength = 0
-            arr = []
             while True:
                 m = next(mIter)
-                nextEnd = m.end()
-                if nextEnd > curEnd + prevLength:
-                    # remove marker from length
-                    curStart, curEnd = m.start(), m.end()
-                    decompressedLength -= curEnd - curStart
-
-                    # add n * reps-1 for the decompressed section
-                    n = int(m.group(1))
-                    reps = int(m.group(2))
-                    prevLength = n
-                    decompressedLength += n*(reps-1)*backtrack(m, [m])
-
-                    # print(m, prevDecompressedLength, decompressedLength)
-
+                self.arr.append((m.start(), m.end(), int(m.group(1)), int(m.group(2))))
         except Exception as e:
-            print("Exception occured!!", e)
+            pass
+            # print("Exception occured!!", e)
+
+        self.i = 0
+        self.takeaway = 0
+        def backtrack():
+            s = self.arr[self.i][0]
+            e = self.arr[self.i][1]
+            l = self.arr[self.i][2]
+            rep = self.arr[self.i][3]
+
+            t = 0
+            while self.i+1 < len(self.arr) and self.arr[self.i+1][0] < e+l:
+                self.i += 1
+                t += backtrack()
+
+            if t == 0:
+                # print(self.i, s, e, l, rep, l*rep)
+                self.takeaway += l + (e-s)
+                return l*rep
+            # print(self.i, s, e, l, rep, t+rep)
+            self.takeaway += (e-s)
+            return t*rep
+        expandedLengths = 0
+        while self.i < len(self.arr):
+            expandedLengths += backtrack()
+            self.i += 1
+        decompressedLength = expandedLengths + decompressedLength - self.takeaway
         print("Decompressed length of the file:", decompressedLength)
 
 def main():
