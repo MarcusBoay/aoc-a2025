@@ -7,7 +7,7 @@ class Solution:
         solution.solve2()
 
     def test():
-        Solution.run(QUIZ_NUMBER + ".ex.in", "abcde")
+        Solution.run(QUIZ_NUMBER + ".ex.in", "abcdefgh")
 
     def __init__(self, fileName, pwd):
         self.ins = []
@@ -71,7 +71,8 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
-        scrambledPwd = "decab" if self.fileName == QUIZ_NUMBER + ".ex.in" else "fbgdceah"
+        # scrambledPwd = "decab" if self.fileName == QUIZ_NUMBER + ".ex.in" else "fbgdceah"
+        scrambledPwd = "abcdefgh" if self.fileName == QUIZ_NUMBER + ".ex.in" else "fbgdceah"
         pwd = list(scrambledPwd)
         for instI in range(len(self.ins)-1, -1, -1):
             inst = self.ins[instI]
@@ -97,28 +98,10 @@ class Solution:
                         if pwd[k] == l:
                             j = k
                             break
-                    r = j
-                    if j == 0:
-                        r = len(pwd)
-                    # FIXME: THIS DOESN'T WORK, THERE ARE MULTIPLE SOLUTIONS
-                    # brute force searching previous index before rotation
-                    # prevI = 0
-                    # for i in range(len(pwd)-1, -1, -1):
-                    #     k = 2*i + 1
-                    #     if k%len(pwd) == j and i < 4:
-                    #         prevI = i
-                    #         print(prevI)
-                    #         break
-                    #     elif (k+1)%len(pwd) == j and i >= 4:
-                    #         prevI = i
-                    #         print(prevI)
-                    #         break
-                    # print(prevI)
-                    # r = 1 + prevI
-                    # if prevI >= 4:
-                    #     r += 1
-                    # r = len(pwd)%len(pwd)
-                    pwd = pwd[r:] + pwd[0:r]
+                    r = 999
+                    rotate = [9,1,6,2,7,3,8,4]
+                    r = rotate[j]
+                    pwd = pwd[r%len(pwd):] + pwd[:r%len(pwd)]
                 else: # left/right
                     r = int(inst[2])
                     if inst[1] == "left":
@@ -139,7 +122,7 @@ class Solution:
 
 def main():
     Solution.test()
-    # Solution.run()
+    Solution.run()
 
 if __name__ == "__main__":
     main()
