@@ -20,7 +20,6 @@ class Solution:
             self.ins.append(tuple(line))
         fp.close()
         print("===", self.fileName, "===")
-        print(self.ins)
 
     def solve1(self):
         print("--- Part One ---")
@@ -65,16 +64,28 @@ class Solution:
             for ijc in curSeen:
                 if (ijc[0],ijc[1]) not in conflict:
                     areas[ijc[2]] += 1
-        print(areas)
         for a in areas:
             print(a, areas[a])
-
 
     def solve2(self):
         print("--- Part Two ---")
 
+        sizeOfRegion = 0
+        for i in range(-5000, 5000):
+            if i % 1000 == 0:
+                print(f"i={i}")
+            for j in range(-5000, 5000):
+                curSize = 0
+                for ijc in self.ins:
+                    curSize += abs(ijc[0]-i) + abs(ijc[1]-j)
+                    if curSize >= 10000:
+                        break
+                if curSize < 10000:
+                    sizeOfRegion += 1
+        print(f"Size of region containing all locations: {sizeOfRegion}")
+
 def main():
-    Solution.test()
+    # Solution.test()
     Solution.run()
 
 if __name__ == "__main__":
