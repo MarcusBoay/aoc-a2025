@@ -46,9 +46,34 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        grid = [[0 for i in range(300)] for j in range(300)]
+        for y in range(1, 301):
+            for x in range(1, 301):
+                rackID = x + 10
+                powerLevel = rackID * y
+                powerLevel = powerLevel + self.serialNumber
+                powerLevel = powerLevel * rackID
+                powerLevel = (powerLevel // 100) % 10
+                powerLevel = powerLevel - 5
+                grid[y-1][x-1] = powerLevel
+        maxPower = 0
+        maxX, maxY, maxSize = 0, 0, 0
+        for s in range(1, 301):
+            print(s)
+            for y in range(0, 301-s):
+                for x in range(0, 301-s):
+                    curPower = 0
+                    for sy in range(y, y+s):
+                        for sx in range(x, x+s):
+                            curPower += grid[sy][sx]
+                            if curPower > maxPower:
+                                maxPower = curPower
+                                maxX, maxY, maxSize = x, y, s
+        print("Largest total power:", maxPower)
+        print("Largest square:", maxX, maxY, maxSize)
 
 def main():
-    Solution.test()
+    # Solution.test()
     Solution.run()
 
 if __name__ == "__main__":
