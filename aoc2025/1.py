@@ -29,12 +29,10 @@ class Solution:
         for (i, n) in self.ins:
             if i == "L":
                 p -= n
-                p %= 100
             else:
                 p += n
-                p %= 100
+            p %= 100
 
-            print(f"p={p}")
             if p == 0:
                 total += 1
 
@@ -44,6 +42,28 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        # dial starts by pointing at 50
+        p = 50
+        # total number of times the dial points at 0
+        total = 0
+        for (i, n) in self.ins:
+            if i == "L":
+                while n:
+                    p -= 1
+                    if p == 0:
+                        total += 1
+                    if p == -1:
+                        p = 99
+                    n -= 1
+            else:
+                while n:
+                    p += 1
+                    if p == 100:
+                        p = 0
+                        total += 1
+                    n -= 1
+
+        print(f"Total times the dial points at 0: {total}")
 
 def main():
     Solution.test()
