@@ -22,6 +22,10 @@ class Solution:
 
     def solve1(self):
         print("--- Part One ---")
+        total = self.totalAccessibleRolls()
+        print(f"Number of rolls of accessible: {total}")
+
+    def totalAccessibleRolls(self) -> int:
         total = 0
         for i in range(len(self.ins)):
             for j in range(len(self.ins[i])):
@@ -41,13 +45,24 @@ class Solution:
                 if adjacent < 4:
                     total += 1
                     self.ins[i][j] = 'x'
+        return total
 
-        # for i in range(len(self.ins)):
-        #     print("".join(self.ins[i]))
-        print(f"Number of rolls of accessible: {total}")
 
     def solve2(self):
         print("--- Part Two ---")
+        total_removed = 0
+        while True:
+            cur_removed = self.totalAccessibleRolls() 
+            for i in range(len(self.ins)):
+                for j in range(len(self.ins[i])):
+                    if self.ins[i][j] == 'x':
+                        self.ins[i][j] = '.'
+            if cur_removed == 0:
+                break
+            else:
+                total_removed += cur_removed
+        print(f"Total rolls removed: {total_removed}")
+
 
 def main():
     Solution.test()
