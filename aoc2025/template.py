@@ -13,7 +13,7 @@ class Solution:
         self.fileName = fileName
         fp = open(fileName, 'r')
         arr = list(map(str, fp.read().split('\n')))
-        for i in range(0, len(arr)):
+        for i in range(0, len(arr)-1):
             line = arr[i].split('|')
             self.ins.append(line[::])
         fp.close()
