@@ -1,0 +1,55 @@
+5068292+
+328 51  64 
+ 64 387 23 
+ 98 215 314
++    *   +   X
+
+
+"a ------
+--- current operator
+
+
+"h ------
+--- number of numbers in the current problem
+
+
+"q ------
+--- get operator and store in register "a
+10gg^d$5gg^"adw10gg"ap0"axd$"ap
+
+"w ------
+--- get digit in number (must be at top of file for the first operation)
+j0xgg$p<C-o>
+
+"f ------
+--- paste operator
+gg$"ap
+
+"p ------
+--- evaluate
+gg$x^"bd$<Esc>"=<C-r>b<Enter>pA+<Esc>
+
+"g ------
+--- clear empty column (assumes at top of file)
+j0x
+
+"j ------
+--- get number of numbers, store in register "h (uses register "z as a temporary store)
+5gg^:call setreg('z', col('.'))<Enter>14gg"zp5gg^w:call setreg('z', col('.'))<Enter>14gg^"zPa-1-<Esc>^"hd$"=<C-r>h<Enter>p^"hd$<Esc>
+
+"l ------
+--- get current number with trailing operator
+gg3@w@f
+
+"u ------
+--- create repeating sequence to solve problem and store in register "y
+50gg0d$"hpA@l@pgg<Esc>"hpA@g<Esc>^"yy$
+
+"y ------
+--- stored macro to solve current problem
+4@l@pgg4@g
+
+"m ------
+--- macro to get operator, get number of numbers, solve current problem, and clear empty column
+@j@q@u@y
+
