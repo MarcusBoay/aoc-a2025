@@ -1,3 +1,5 @@
+import pulp
+
 QUIZ_NUMBER = "10"
 
 class Solution:
@@ -62,7 +64,7 @@ class Solution:
                             q.append(next[::])
                             seen_l.add("".join(next))
                         if target_lights == "".join(next):
-                            print(f"Fewest button presses for problem {pi+1}: {fewest_button_presses}")
+                            # print(f"Fewest button presses for problem {pi+1}: {fewest_button_presses}")
                             total_fewest_presses += fewest_button_presses
                             found = True
                             break
@@ -70,6 +72,42 @@ class Solution:
 
     def solve2(self):
         print("--- Part Two ---")
+        total_fewest_presses = 0
+        for pi in range(len(self.joltage)):
+            # create the problem
+            prob = pulp.LpProblem("ILP", pulp.LpMinimize)
+
+            # decision variables
+            vars = []
+            for ji in range(len(self.button_wiring[pi])):
+                vars.append(pulp.LpVariable("x"+str(ji), lowBound=0, cat="Integer"))
+
+            # objective
+            prob += sum(vars), "target"
+
+            # constraints
+            arr = [[0 for i in range(len(self.joltage[pi]))] for j in range(len(self.button_wiring[pi]))]
+            for i in range(len(self.button_wiring[pi])):
+                for bi in self.button_wiring[pi][i]:
+                    arr[i][bi] = 1
+
+            for ji in range(len(self.joltage[pi])):
+                cur_eq_vars = []
+                for i in range(len(arr)):
+                    if arr[i][ji]:
+                        cur_eq_vars.append(vars[i])
+                print(cur_eq_vars)
+                prob += sum(cur_eq_vars) == self.joltage[pi][ji], "constraint"+str(ji)
+
+            # solve
+            prob.solve()
+
+            # output
+            print(f"fewest presses: {pulp.value(prob.objective)}")
+            total_fewest_presses += pulp.value(prob.objective)
+
+        print(f"Total fewest button presses: {total_fewest_presses}")
+
 
 def main():
     Solution.test()
