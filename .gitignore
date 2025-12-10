@@ -1,3 +1,5 @@
 a.out
 *.in*
-venv/*
+
+# python virtual env stuff
+aoc2025/venv
